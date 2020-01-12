@@ -1,0 +1,19 @@
+{
+  "name": "fullstack_app",
+  "version": "1.0.0",
+  "description": "This app was created to revise my fullStack application building skills. I'd created this app inplimenting NodeJs and MongoDB in the backend, and React, Redux, and SementicUI in the backend. I also integreted Authentication using JWT.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DebOM/Authentication_Pro.git"
+  },
+  "author": "Debasishbd@outlook.com<DEB>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DebOM/Authentication_Pro/issues"
+  },
+  "homepage": "https://github.com/DebOM/Authentication_Pro#readme"
+}
