@@ -23,6 +23,7 @@ const loginValidation = data => {
   const loginSchema = Joi.object({
     email: Joi.string()
       .min(6)
+      .email()
       .required(),
     password: Joi.string()
       .min(8)

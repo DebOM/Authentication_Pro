@@ -14,7 +14,6 @@ router.post("/register", async (req, res) => {
 
   //CHECK IF THE USER ALREADY EXIST IN DB
   const userExist = await User.findOne({ email: req.body.email });
-  console.log(userExist);
   if (userExist)
     return res.status(400).send(`user ${req.body.email} already exist!`);
 
@@ -39,13 +38,17 @@ router.post("/register", async (req, res) => {
 
 //USER LOGIN ENDPOINT
 router.post("/login", async (req, res) => {
-  //LETS VALIDATE BEFORE WE LOG THE USER IN
+  //LETS VALIDATE DATA BEFORE WE LOG THE USER IN
   const { error } = loginValidation(req.body);
-  if (error) return err.details[0].message;
+  if (error) return res.status(400).send(error.details[0].message);
 
   //CHECK IF THE USER EXIST IN DB
-  // const userExist = await User.findOne({ email: req.body.email });
-  // if (userExiss) re;
+  const userExist = await User.findOne({ email: req.body.email });
+  if (!userExist) return res.status(404).send("user is not found!");
+
+  const validPass = await bcrypt.compare(req.body.password, userExist.password);
+  if (!validPass) return res.status(401).send("Invalid Password!");
+
   res.send("user is loggedIn");
 });
 
