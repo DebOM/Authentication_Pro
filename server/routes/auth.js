@@ -5,7 +5,7 @@ const {
   loginValidation
 } = require("../Joi_Validation/validation");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
 //USER REGISTRATION ENDPOINT
 router.post("/register", async (req, res) => {
   //LETS VALIDATE BEFORE WE SAVE THE USER
@@ -30,7 +30,7 @@ router.post("/register", async (req, res) => {
   try {
     //SAVE USER TO MONGODB
     const savedUser = await user.save();
-    res.send(`User ${savedUser.name} is now registered!`);
+    res.send(`User ${savedUser._id} is now registered!`);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -49,7 +49,8 @@ router.post("/login", async (req, res) => {
   const validPass = await bcrypt.compare(req.body.password, userExist.password);
   if (!validPass) return res.status(401).send("Invalid Password!");
 
-  res.send("user is loggedIn");
+  const token = jwt.sign({ _id: userExist._id }, process.env.TOKEN_SECRET);
+  res.header("auth-token", token).send(`user is loggedIn with token ${token}`);
 });
 
 module.exports = router;

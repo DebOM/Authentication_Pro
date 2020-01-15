@@ -22,7 +22,6 @@ app.use(express.json());
 
 //Route middlewares
 app.use("/api/user", authRoute);
-
-app.use("/", appRoute);
+app.use("/app", appRoute);
 
 app.listen(3000, () => console.log("hello, server listening on port 3000"));
